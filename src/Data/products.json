@@ -1,0 +1,18 @@
+[
+    {
+      "id": 1,
+      "name": "Koszulka",
+      "price": 100,
+      "description": "Wygodna koszulka z bawełny",
+      "image": "url_to_image",
+      "category": "Odzież"
+    },
+    {
+      "id": 2,
+      "name": "Spodnie",
+      "price": 150,
+      "description": "Stylowe spodnie dżinsowe",
+      "image": "url_to_image",
+      "category": "Odzież"
+    }
+]
