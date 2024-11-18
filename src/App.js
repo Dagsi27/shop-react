@@ -4,6 +4,7 @@ import HomePage from './Pages/MainPage/MainPage'
 import Footer from './Layout/Footer/Footer'
 import Header from './Layout/Header/Header'
 import Layout from './Layout/Layout'
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 const header = <Header/>
 
