@@ -7,7 +7,7 @@ export default function useWebsiteTitle(title) {
 
     useEffect(() => {
         setTitle(title)
-    }, [title])
+    }, [title]);
 
     return setTitle;
 }
