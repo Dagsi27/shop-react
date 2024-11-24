@@ -1,5 +1,5 @@
 main {
-    background-color: #f8f9fa;
+    background-color: #ebebeb;
     padding: 20px;
 }
 
@@ -7,11 +7,11 @@ main {
     width: 50%;
 }
 
-
-/*Caption fonts and edits*/
 #mainSlider{
-    width: 50%;
+    width: 50%; 
 }
+/*Caption fonts and edits*/
+
 .caption-text{
     font-family: serif;
 }
@@ -33,6 +33,11 @@ main {
     color: #ffffff;
 }
 /*Carousel stuff*/
+.carousel-inner{
+    border-width: 5px;
+    border-color: rgb(0, 0, 0);
+    border: 3px solid #ffffff;
+}
 
 .item-image{
     width: 1400px;

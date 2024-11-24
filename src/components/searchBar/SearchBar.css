@@ -1,0 +1,52 @@
+.search-bar-container input:focus {
+  border-color: #282828;
+  outline: 0;
+  box-shadow: 0 0 0 .25rem rgba(12, 12, 12, 0.25);
+}
+
+.search-bar-container {
+  position: relative;
+  margin-top: 10px;
+}
+
+/* Styl dla okna wyników wyszukiwania */
+.search-results {
+  position: absolute;
+  top: 100%;
+  left: 0;  
+  width: 100%;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  z-index: 1000;
+  max-height: 0; 
+  overflow: hidden;
+  opacity: 0; 
+  visibility: hidden;
+}
+
+/* Kiedy wyniki mają być widoczne */
+.search-results.open {
+  max-height: 300px; 
+  opacity: 1; 
+  visibility: visible; 
+}
+.search-results:not(.open) {
+  max-height: 0;
+  opacity: 0;
+  visibility: hidden;
+}
+
+
+.search-result-item {
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.search-result-item:hover {
+  background-color: #e1e1e1;
+}
+
+
+
