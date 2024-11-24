@@ -4,9 +4,11 @@
   box-shadow: 0 0 0 .25rem rgba(12, 12, 12, 0.25);
 }
 
-.search-bar-container {
+.search-bar-container  {
   position: relative;
-  margin-top: 10px;
+}
+.input-group{
+  margin-top:2rem;
 }
 
 /* Styl dla okna wyników wyszukiwania */

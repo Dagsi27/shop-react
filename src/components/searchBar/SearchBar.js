@@ -15,8 +15,7 @@ const SearchBar = ({ data }) => {
       );
       setFilteredResults(results);
     } else {
-      // Jeśli nic nie wpisano, pokaż pierwsze dostępne wyniki
-      setFilteredResults(data.slice(0, 5)); // Pokaż 5 pierwszych wyników
+      setFilteredResults(data.slice(0, 5));
     }
   };
 
@@ -29,11 +28,10 @@ const SearchBar = ({ data }) => {
   // Funkcje do obsługi focusa
   const handleFocus = () => {
     setIsFocused(true);
-    filterResults(query); // Pokaż pierwsze wyniki, jeśli nie ma tekstu
+    filterResults(query);
   };
 
   const handleBlur = () => {
-    // Logikę zamykania wyniku przenosimy do obsługi kliknięcia poza element
     if (query.trim() === "") {
       setFilteredResults([]);
     }
@@ -60,6 +58,9 @@ const SearchBar = ({ data }) => {
     }
   }, [isFocused, query, data]);
 
+  // Funkcja zamieniająca "_" na spacje w wynikach
+  const formatResult = (result) => result.replace(/_/g, " ");
+
   return (
     <div className="search-bar-container" ref={searchBarRef}>
       <form className="input-group">
@@ -69,8 +70,8 @@ const SearchBar = ({ data }) => {
           placeholder="Search for products"
           value={query}
           onChange={handleInputChange}
-          onFocus={handleFocus} // Kiedy pole dostaje focus
-          onBlur={handleBlur} // Kiedy pole traci focus
+          onFocus={handleFocus}
+          onBlur={handleBlur}
         />
         <button
           className="btn btn-outline-secondary"
@@ -83,17 +84,23 @@ const SearchBar = ({ data }) => {
 
       {/* Wyniki wyszukiwania */}
       {isFocused && (
-        <div className={`search-results ${filteredResults.length > 0 || query.trim() !== "" ? "open" : ""}`}>
+        <div
+          className={`search-results ${
+            filteredResults.length > 0 || query.trim() !== "" ? "open" : ""
+          }`}
+        >
           {/* Jeśli wyniki są, wyświetl je */}
           {filteredResults.length > 0 ? (
             filteredResults.map((result, index) => (
               <div key={index} className="search-result-item">
-                {result}
+                {formatResult(result)} {/* Zamiana "_" na spacje */}
               </div>
             ))
           ) : (
             // Jeśli brak wyników i pole nie jest puste, wyświetl komunikat
-            query.trim() !== "" && <div className="search-result-item">No results found</div>
+            query.trim() !== "" && (
+              <div className="search-result-item">No results found</div>
+            )
           )}
         </div>
       )}

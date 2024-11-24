@@ -3,19 +3,32 @@ import useWebsiteTitle from "../../hooks/useWebsiteTitle";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import SearchBar from "../../components/searchBar/SearchBar";
+import CatgoriesSection from "../../components/categoriesSection/CategoriesSection";
 
 export default function MainPage() {
   useWebsiteTitle("Strona główna");
   //Do usuniecia tylko testowo
-  const sampleData = [
+  const categories = [
+    "FASHION",
     "ELECTRONICS",
+    "HOME_AND_GARDEN",
+    "BEAUTY",
     "TOYS",
-    "MUSIC",
-    "FURNITRE",
-    "CARS",
-    "LEGO",
     "SPORT",
-
+    "BOOKS",
+    "MUSIC",
+    "CARS",
+    "PET_SUPPLIES",
+    "FOOD_AND_DRINKS",
+    "TRAVEL",
+    "HEALTH",
+    "DIY_AND_TOOLS",
+    "OUTDOOR",
+    "JEWELRY",
+    "OFFICE_SUPPLIES",
+    "BABY_PRODUCTS",
+    "HOLIDAY_AND_PARTY",
+    "VIDEO_GAMES",
   ];
 
   return (
@@ -66,7 +79,7 @@ export default function MainPage() {
               />
               <div className="carousel-caption d-flex flex-column align-items-start text-start">
                 <h2 className="caption-text">Amazing Discounts</h2>
-                <p className="caption-text ms-auto text-end">
+                <p className="caption-text ms-auto text-end carouselText ">
                   Buy yourself a favor
                 </p>
                 <button className="shop-button">Shop Now</button>
@@ -127,91 +140,38 @@ export default function MainPage() {
           className="row text-center d-flex justify-content-around"
           id="specialCategories"
         >
-          <div className="col-2 col-md-4 col-lg-5">
+          <div class="col-2 col-md-4 col-lg-5">
             <Link to="/discounts" className="text-decoration-none">
-              <img
-                src="https://via.placeholder.com/500x600"
-                className="img-fluid rounded"
-                alt="Cars"
-              />
-              <p className="mt-2">Discounts</p>
+              <div class="button-style ratio">
+                <img
+                  src="https://images.unsplash.com/photo-1606422699425-f7122890005f?q=80&w=2075&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  class="sc-img"
+                  alt="Discounts"
+                />
+                <button class="button-text">Discounts</button>
+              </div>
             </Link>
           </div>
-          <div className="col-2 col-md-4 col-lg-5">
-            <Link to="/popular" className="text-decoration-none">
-              <img
-                src="https://via.placeholder.com/500x600"
-                className="img-fluid rounded"
-                alt="Toys"
-              />
-              <p className="mt-2">Popular</p>
+
+          <div class="col-2 col-md-4 col-lg-5">
+            <Link to="/popular" className="text-center">
+              <div class="button-style ratio">
+                <img
+                  src="https://plus.unsplash.com/premium_photo-1675186049366-64a655f8f537?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  class="sc-img"
+                  alt="Popular"
+                />
+                <button class="button-text">Popular</button>
+              </div>
             </Link>
           </div>
 
           {/* Search Section */}
-          <SearchBar data={sampleData} />
+          <SearchBar data={categories} />
         </div>
       </div>
       {/* Categories Section */}
-      <section className="mt-5">
-        <h3 className="text-center">Shop by Categories</h3>
-        <div className="d-flex justify-content-between align-items-center my-3">
-          <button className="btn btn-outline-secondary">&larr;</button>
-          <button className="btn btn-outline-secondary">&rarr;</button>
-        </div>
-        <div className="row text-center">
-          <div className="col-6 col-md-4 col-lg-2">
-            <Link to="/cars" className="text-decoration-none">
-              <img
-                src="https://via.placeholder.com/150"
-                className="img-fluid rounded"
-                alt="Cars"
-              />
-              <p className="mt-2">Cars</p>
-            </Link>
-          </div>
-          <div className="col-6 col-md-4 col-lg-2">
-            <Link to="/toys" className="text-decoration-none">
-              <img
-                src="https://via.placeholder.com/150"
-                className="img-fluid rounded"
-                alt="Toys"
-              />
-              <p className="mt-2">Toys</p>
-            </Link>
-          </div>
-          <div className="col-6 col-md-4 col-lg-2">
-            <Link to="/music" className="text-decoration-none">
-              <img
-                src="https://via.placeholder.com/150"
-                className="img-fluid rounded"
-                alt="Music"
-              />
-              <p className="mt-2">Music</p>
-            </Link>
-          </div>
-          <div className="col-6 col-md-4 col-lg-2">
-            <Link to="/electronics" className="text-decoration-none">
-              <img
-                src="https://via.placeholder.com/150"
-                className="img-fluid rounded"
-                alt="Electronics"
-              />
-              <p className="mt-2">Electronics</p>
-            </Link>
-          </div>
-          <div className="col-6 col-md-4 col-lg-2">
-            <Link to="/furniture" className="text-decoration-none">
-              <img
-                src="https://via.placeholder.com/150"
-                className="img-fluid rounded"
-                alt="Furniture"
-              />
-              <p className="mt-2">Furniture</p>
-            </Link>
-          </div>
-        </div>
-      </section>
+      <CatgoriesSection categories={categories} />
     </main>
   );
 }

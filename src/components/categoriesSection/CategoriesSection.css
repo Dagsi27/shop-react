@@ -1,0 +1,47 @@
+section {
+  padding: 20px 0;
+}
+
+h3 {
+  margin-bottom: 20px;
+}
+
+.navigation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+button {
+  font-size: 16px;
+  padding: 8px 16px;
+}
+
+img {
+  transition: transform 0.2s;
+}
+
+img:hover {
+  transform: scale(1.05);
+}
+
+p {
+  font-size: 14px;
+  color: #555;
+}
+
+.ratio-container {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+}
+.ratio-container:hover{
+  transform: scale(1.05);
+  transition: transform 0.2s;
+}
+
+.ratio-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
