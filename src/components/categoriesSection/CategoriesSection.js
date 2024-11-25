@@ -60,7 +60,7 @@ const CategoriesList = ({ categories }) => {
                 >
                   <div className="ratio-container rounded-1 border border-light">
                     <img
-                      src={`https://via.placeholder.com/300x225?text=${formattedCategory}`}
+                      src={`https://via.placeholder.com/300x225?text=Placeholder`}
                       className="img-fluid rounded-1 "
                       alt={formattedCategory}
                     />
