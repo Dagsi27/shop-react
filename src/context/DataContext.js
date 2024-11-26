@@ -9,6 +9,7 @@ export function DataProvider({ children }) {
     const fetchData = async () => {
       try {
         const response = await fetch('/products');
+        console.log(response);
         if (!response.ok) {
           throw new Error('Failed to fetch data');
         }
