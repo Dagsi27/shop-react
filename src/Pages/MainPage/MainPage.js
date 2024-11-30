@@ -4,13 +4,18 @@ import { Link } from "react-router-dom";
 import SearchBar from "../../components/searchBar/SearchBar";
 import CatgoriesSection from "../../components/categoriesSection/CategoriesSection";
 import { useData } from "../../hooks/useData";
+import productData from "../../Data/products.json"; // Import danych JSON
 
 export default function MainPage() {
   useWebsiteTitle("Strona główna");
   
+ //dane testowe 
+  const test = productData
+  
   const data = useData(); // Pobierz dane z kontekstu
+
   const categories = data
-    ? [...new Set(data.map(product => product.name))] // Wyodrębnij unikalne nazwy kategorii
+    ? [...new Set(test.map(product => product.name))] // Wyodrębnij unikalne nazwy kategorii
     : [];
 
   return (
@@ -113,24 +118,7 @@ export default function MainPage() {
 
 
   {/* Strzałki - nawigacja */}
-  <button
-    className="carousel-control-prev"
-    type="button"
-    data-bs-target="#mainSlider"
-    data-bs-slide="prev"
-  >
-    <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span className="visually-hidden">Previous</span>
-  </button>
-  <button
-    className="carousel-control-next"
-    type="button"
-    data-bs-target="#mainSlider"
-    data-bs-slide="next"
-  >
-    <span className="carousel-control-next-icon" aria-hidden="true"></span>
-    <span className="visually-hidden">Next</span>
-  </button>
+  
 </div>
 
 
@@ -171,6 +159,8 @@ export default function MainPage() {
       </div>
 
       {/* Categories Section */}
+      <CatgoriesSection categories={categories} />
+      <CatgoriesSection categories={categories} />
       <CatgoriesSection categories={categories} />
     </main>
   );

@@ -1,18 +1,94 @@
-[
+{
+  "products": [
     {
       "id": 1,
-      "name": "Koszulka",
-      "price": 100,
-      "description": "Wygodna koszulka z bawełny",
-      "image": "url_to_image",
-      "category": "Odzież"
+      "name": "Bezprzewodowe słuchawki X-100",
+      "description": "Wysokiej jakości słuchawki bezprzewodowe z redukcją szumów i długim czasem pracy na baterii.",
+      "price": 299.99,
+      "category": "Elektronika",
+      "rating": 4.5,
+      "image": "https://via.placeholder.com/150"
     },
     {
       "id": 2,
-      "name": "Spodnie",
-      "price": 150,
-      "description": "Stylowe spodnie dżinsowe",
-      "image": "url_to_image",
-      "category": "Odzież"
+      "name": "Smartwatch Pro S",
+      "description": "Stylowy smartwatch z monitorowaniem zdrowia, GPS i wodoodpornością do 50 metrów.",
+      "price": 499.99,
+      "category": "Elektronika",
+      "rating": 4.7,
+      "image": "https://via.placeholder.com/150"
+    },
+    {
+      "id": 3,
+      "name": "Kawa Arabica 100% 500g",
+      "description": "Świeżo palona kawa Arabica z regionów o najlepszych warunkach do uprawy kawy.",
+      "price": 49.99,
+      "category": "Spożywcze",
+      "rating": 4.8,
+      "image": "https://via.placeholder.com/150"
+    },
+    {
+      "id": 4,
+      "name": "Wielofunkcyjny plecak turystyczny",
+      "description": "Lekki i trwały plecak idealny na wycieczki i codzienne użytkowanie.",
+      "price": 199.99,
+      "category": "Akcesoria",
+      "rating": 4.4,
+      "image": "https://via.placeholder.com/150"
+    },
+    {
+      "id": 5,
+      "name": "Książka: Jak osiągnąć sukces?",
+      "description": "Inspirujący poradnik z praktycznymi wskazówkami, jak osiągnąć swoje cele.",
+      "price": 34.99,
+      "category": "Książki",
+      "rating": 4.3,
+      "image": "https://via.placeholder.com/150"
+    },
+    {
+      "id": 6,
+      "name": "Gra planszowa Stratego",
+      "description": "Klasyczna gra planszowa dla całej rodziny, rozwijająca myślenie strategiczne.",
+      "price": 89.99,
+      "category": "Zabawki",
+      "rating": 4.6,
+      "image": "https://via.placeholder.com/150"
+    },
+    {
+      "id": 7,
+      "name": "Torba sportowa Classic",
+      "description": "Pojemna torba sportowa idealna na siłownię i krótkie wyjazdy.",
+      "price": 129.99,
+      "category": "Akcesoria",
+      "rating": 4.2,
+      "image": "https://via.placeholder.com/150"
+    },
+    {
+      "id": 8,
+      "name": "Lampka biurkowa LED",
+      "description": "Energooszczędna lampka biurkowa z regulacją jasności i kąta nachylenia.",
+      "price": 79.99,
+      "category": "Dom i Ogród",
+      "rating": 4.7,
+      "image": "https://via.placeholder.com/150"
+    },
+    {
+      "id": 9,
+      "name": "Termos stalowy 1L",
+      "description": "Wytrzymały termos, który utrzymuje temperaturę napojów przez wiele godzin.",
+      "price": 59.99,
+      "category": "Akcesoria",
+      "rating": 4.8,
+      "image": "https://via.placeholder.com/150"
+    },
+    {
+      "id": 10,
+      "name": "Koszulka sportowa Active",
+      "description": "Oddychająca koszulka sportowa idealna na treningi i aktywność na świeżym powietrzu.",
+      "price": 89.99,
+      "category": "Odzież",
+      "rating": 4.5,
+      "image": "https://via.placeholder.com/150"
     }
-]
+  ]
+}
