@@ -11,7 +11,7 @@ const SearchBar = ({ data }) => {
   const filterResults = (input) => {
     if (input.trim() !== "") {
       const results = data.filter((item) =>
-        item.toLowerCase().includes(input.toLowerCase())
+        item.name.toLowerCase().includes(input.toLowerCase())
       );
       setFilteredResults(results);
     } else {
@@ -58,9 +58,6 @@ const SearchBar = ({ data }) => {
     }
   }, [isFocused, query, data]);
 
-  // Funkcja zamieniająca "_" na spacje w wynikach
-  const formatResult = (result) => result.replace(/_/g, " ");
-
   return (
     <div className="search-bar-container" ref={searchBarRef}>
       <form className="input-group">
@@ -89,15 +86,13 @@ const SearchBar = ({ data }) => {
             filteredResults.length > 0 || query.trim() !== "" ? "open" : ""
           }`}
         >
-          {/* Jeśli wyniki są, wyświetl je */}
           {filteredResults.length > 0 ? (
             filteredResults.map((result, index) => (
               <div key={index} className="search-result-item">
-                {formatResult(result)} {/* Zamiana "_" na spacje */}
+                {result.name} {/* Wyświetlanie nazwy */}
               </div>
             ))
           ) : (
-            // Jeśli brak wyników i pole nie jest puste, wyświetl komunikat
             query.trim() !== "" && (
               <div className="search-result-item">No results found</div>
             )

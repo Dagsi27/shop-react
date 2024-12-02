@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./CategoriesSection.css";
 
-const CategoriesList = ({ categories, data }) => {
+const CategoriesList = ({ categories }) => {
   const [startIndex, setStartIndex] = useState(0); // Index do śledzenia widocznych kategorii
   const visibleCategories = 12; // Liczba widocznych kategorii (6x2)
 
@@ -47,26 +47,24 @@ const CategoriesList = ({ categories, data }) => {
               ? categories.slice(0, (startIndex + visibleCategories) % categories.length)
               : []
           )
-          .map((category, index) => {
-            const formattedCategory = category.replaceAll("_", " ");
-            return (
-              <div key={index} className="col-6 col-md-4 col-lg-2 mb-4">
-                <Link
-                  to={`/product/${category.toLowerCase()}`} // Dynamiczny link
-                  className="text-decoration-none"
-                >
-                  <div className="ratio-container rounded-1 border border-light">
-                    <img
-                      src={`https://via.placeholder.com/300x225?text=Placeholder`}
-                      className="img-fluid rounded-1 "
-                      alt={formattedCategory}
-                    />
-                  </div>
-                  <p className="mt-2">{formattedCategory}</p>
-                </Link>
-              </div>
-            );
-          })}
+          .map((category, index) => (
+            <div key={index} className="col-6 col-md-4 col-lg-2 mb-4">
+              <Link
+                to={`/product/${category.id}`}
+                className="text-decoration-none"
+              >
+                <div className="ratio-container rounded-1 border border-light">
+                  <img
+                    src={`https://via.placeholder.com/300x225?text=${category.name}`}
+                    className="img-fluid rounded-1"
+                    alt={category.name}
+                  />
+                </div>
+                <p className="mt-2">{category.name}</p>
+              </Link>
+
+            </div>
+          ))}
       </div>
     </section>
   );

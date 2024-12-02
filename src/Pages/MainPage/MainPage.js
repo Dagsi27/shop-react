@@ -12,8 +12,10 @@ export default function MainPage() {
 
   // Pobierz unikalne kategorie z danych
   const categories = Array.isArray(data)
-    ? [...new Set(data.map((product) => product.name))]
+    ? [...new Set(data.map((product) => product))]
     : [];
+    
+  console.log(categories)
 
   return (
     <main className={styles.mainPageContainer}>
