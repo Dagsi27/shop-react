@@ -10,7 +10,7 @@ h3 {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 15px;
+  margin-bottom: 105px;
 }
 
 button {
@@ -22,8 +22,9 @@ img {
   transition: transform 0.2s;
 }
 
-img:hover {
+.CategoriesSection img:hover {
   transform: scale(1.05);
+  transition: transform 0.2s;
 }
 
 p {

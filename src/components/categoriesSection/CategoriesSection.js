@@ -2,12 +2,11 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./CategoriesSection.css";
 
-const CategoriesList = ({ categories }) => {
+const CategoriesList = ({ categories, data }) => {
   const [startIndex, setStartIndex] = useState(0); // Index do śledzenia widocznych kategorii
   const visibleCategories = 12; // Liczba widocznych kategorii (6x2)
 
   const handleNext = () => {
-    // Jeśli na końcu listy, wróć na początek
     setStartIndex((prevIndex) =>
       prevIndex + visibleCategories >= categories.length
         ? 0
@@ -16,7 +15,6 @@ const CategoriesList = ({ categories }) => {
   };
 
   const handlePrev = () => {
-    // Jeśli na początku listy, przejdź na koniec
     setStartIndex((prevIndex) =>
       prevIndex - visibleCategories < 0
         ? Math.max(categories.length - visibleCategories, 0)
@@ -45,7 +43,6 @@ const CategoriesList = ({ categories }) => {
         {categories
           .slice(startIndex, startIndex + visibleCategories)
           .concat(
-            // Jeśli wyświetlane kategorie wychodzą poza listę, dodaj początkowe elementy
             startIndex + visibleCategories > categories.length
               ? categories.slice(0, (startIndex + visibleCategories) % categories.length)
               : []
@@ -55,7 +52,7 @@ const CategoriesList = ({ categories }) => {
             return (
               <div key={index} className="col-6 col-md-4 col-lg-2 mb-4">
                 <Link
-                  to={`/${category.toLowerCase()}`}
+                  to={`/product/${category.toLowerCase()}`} // Dynamiczny link
                   className="text-decoration-none"
                 >
                   <div className="ratio-container rounded-1 border border-light">

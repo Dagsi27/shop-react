@@ -7,7 +7,19 @@
       "price": 299.99,
       "category": "Elektronika",
       "rating": 4.5,
-      "image": "https://via.placeholder.com/150"
+      "images": [
+        "https://images.pexels.com/photos/19457056/pexels-photo-19457056/free-photo-of-miasto-restauracja-chodnik-kawiarnia.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+        "https://images.pexels.com/photos/29549363/pexels-photo-29549363.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+      ],
+      "stock": 150,
+      "sold": 50,
+      "delivery_time": "3-5 dni roboczych",
+      "shipping_cost": 19.99,
+      "seller": "AudioTech Polska",
+      "condition": "Nowy",
+      "brand": "X-Tech",
+      "model": "X-100",
+      "warranty": "2 lata"
     },
     {
       "id": 2,
@@ -16,7 +28,19 @@
       "price": 499.99,
       "category": "Elektronika",
       "rating": 4.7,
-      "image": "https://via.placeholder.com/150"
+      "images": [
+        "https://via.placeholder.com/150",
+        "https://via.placeholder.com/150/FF5733"
+      ],
+      "stock": 80,
+      "sold": 30,
+      "delivery_time": "2-4 dni robocze",
+      "shipping_cost": 14.99,
+      "seller": "SmartTech",
+      "condition": "Nowy",
+      "brand": "SmartTech",
+      "model": "Pro S",
+      "warranty": "1 rok"
     },
     {
       "id": 3,
@@ -25,7 +49,18 @@
       "price": 49.99,
       "category": "Spożywcze",
       "rating": 4.8,
-      "image": "https://via.placeholder.com/150"
+      "images": [
+        "https://via.placeholder.com/150/FF5733/FFFFFF?text=Kawa+Arabica"
+      ],
+      "stock": 200,
+      "sold": 120,
+      "delivery_time": "4-6 dni roboczych",
+      "shipping_cost": 9.99,
+      "seller": "CoffeeWorld",
+      "condition": "Nowy",
+      "brand": "Arabica Gold",
+      "weight": "500g",
+      "origin": "Kolumbia"
     },
     {
       "id": 4,
@@ -34,7 +69,18 @@
       "price": 199.99,
       "category": "Akcesoria",
       "rating": 4.4,
-      "image": "https://via.placeholder.com/150"
+      "images": [
+        "https://via.placeholder.com/150/33AFFF/FFFFFF?text=Plecak+Turystyczny"
+      ],
+      "stock": 50,
+      "sold": 10,
+      "delivery_time": "5-7 dni roboczych",
+      "shipping_cost": 15.99,
+      "seller": "AdventureStore",
+      "condition": "Nowy",
+      "brand": "TrailMax",
+      "capacity": "35L",
+      "material": "Poliester"
     },
     {
       "id": 5,
@@ -43,7 +89,18 @@
       "price": 34.99,
       "category": "Książki",
       "rating": 4.3,
-      "image": "https://via.placeholder.com/150"
+      "images": [
+        "https://via.placeholder.com/150"
+      ],
+      "stock": 120,
+      "sold": 70,
+      "delivery_time": "2-4 dni robocze",
+      "shipping_cost": 5.99,
+      "seller": "BookWorld",
+      "condition": "Nowy",
+      "author": "Jan Kowalski",
+      "publisher": "Sukces Media",
+      "pages": 250
     },
     {
       "id": 6,
@@ -52,7 +109,18 @@
       "price": 89.99,
       "category": "Zabawki",
       "rating": 4.6,
-      "image": "https://via.placeholder.com/150"
+      "images": [
+        "https://via.placeholder.com/150"
+      ],
+      "stock": 60,
+      "sold": 25,
+      "delivery_time": "4-6 dni roboczych",
+      "shipping_cost": 12.99,
+      "seller": "GameZone",
+      "condition": "Nowy",
+      "brand": "FamilyFun",
+      "players": "2-4",
+      "age": "7+"
     },
     {
       "id": 7,
@@ -61,7 +129,18 @@
       "price": 129.99,
       "category": "Akcesoria",
       "rating": 4.2,
-      "image": "https://via.placeholder.com/150"
+      "images": [
+        "https://via.placeholder.com/400x400"
+      ],
+      "stock": 90,
+      "sold": 40,
+      "delivery_time": "3-5 dni roboczych",
+      "shipping_cost": 7.99,
+      "seller": "SportLife",
+      "condition": "Nowy",
+      "brand": "ClassicFit",
+      "dimensions": "50x30x25 cm",
+      "material": "Nylon"
     },
     {
       "id": 8,
@@ -70,7 +149,18 @@
       "price": 79.99,
       "category": "Dom i Ogród",
       "rating": 4.7,
-      "image": "https://via.placeholder.com/150"
+      "images": [
+        "https://via.placeholder.com/150"
+      ],
+      "stock": 110,
+      "sold": 50,
+      "delivery_time": "2-4 dni robocze",
+      "shipping_cost": 6.99,
+      "seller": "HomeTech",
+      "condition": "Nowy",
+      "brand": "LightPro",
+      "power": "5W",
+      "color": "Biały"
     },
     {
       "id": 9,
@@ -79,7 +169,18 @@
       "price": 59.99,
       "category": "Akcesoria",
       "rating": 4.8,
-      "image": "https://via.placeholder.com/150"
+      "images": [
+        "https://via.placeholder.com/150"
+      ],
+      "stock": 75,
+      "sold": 30,
+      "delivery_time": "3-5 dni roboczych",
+      "shipping_cost": 8.99,
+      "seller": "OutdoorGear",
+      "condition": "Nowy",
+      "brand": "ThermoMax",
+      "capacity": "1L",
+      "material": "Stal nierdzewna"
     },
     {
       "id": 10,
@@ -88,7 +189,18 @@
       "price": 89.99,
       "category": "Odzież",
       "rating": 4.5,
-      "image": "https://via.placeholder.com/150"
+      "images": [
+        "https://via.placeholder.com/150"
+      ],
+      "stock": 130,
+      "sold": 90,
+      "delivery_time": "4-6 dni roboczych",
+      "shipping_cost": 4.99,
+      "seller": "FitWear",
+      "condition": "Nowy",
+      "brand": "ActiveGear",
+      "material": "Poliester",
+      "sizes": ["S", "M", "L", "XL"]
     }
   ]
 }

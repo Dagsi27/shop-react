@@ -1,0 +1,161 @@
+.productContainer {
+  background-color: #f9f9f9; /* Jasne tło dla całej strony */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.productTitle {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Carousel */
+.carousel {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.carouselInner {
+  height: 100%;
+  width: 100%;
+  background-color: #9a9a9a;
+}
+
+.itemImage {
+  width: 1400px;
+  height: 400px;
+  object-fit:contain;
+}
+
+
+.carouselCaption {
+  width: 40%;
+}
+
+.carouselCaption h2 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: white;
+}
+
+.carouselCaption p {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: white;
+}
+
+.carouselCaption button {
+  font-size: 1rem;
+  padding: 10px 20px;
+  background-color: #007bff;
+  border: none;
+  color: white;
+  border-radius: 5px;
+}
+.produtPage{
+  background-color: #f9f9f9;
+}
+
+.productDetails {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.addToCartButton {
+  width: 100%;
+  margin-top: 20px;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.notFound {
+  text-align: center;
+  color: red;
+  font-size: 1.5rem;
+}
+
+.customControl {
+  width: 50px;
+  height: 50px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 1px; 
+  z-index: 1;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.customControl:hover {
+  background-color: rgba(0, 0, 0, 0.621); 
+}
+.thumbnailContainer {
+  gap: 10px; /* Odstępy między miniaturami */
+  overflow-x: auto; /* Dodanie przewijania w poziomie dla dużej ilości zdjęć */
+}
+
+.thumbnail {
+  width: 60px;
+  height: 60px;
+  object-fit: cover; /* Dopasowanie obrazu do wymiarów */
+  cursor: pointer;
+  border: 2px solid transparent; /* Domyślnie przezroczysta obwódka */
+  border-radius: 4px; /* Zaokrąglenie rogów */
+  transition: border-color 0.3s ease;
+}
+
+.thumbnail:hover {
+  border-color: rgba(0, 0, 0, 0.5); /* Obwódka przy najechaniu */
+}
+
+.activeThumbnail {
+  border-color: black; /* Obwódka aktywnego obrazu */
+}
+.thumbnailContainer {
+  gap: 10px; /* Odstępy między miniaturami */
+  width: 100%; /* Dopasowanie do szerokości */
+}
+
+.thumbnail {
+  width: 60px;
+  height: 60px;
+  object-fit: cover; /* Dopasowanie obrazu do wymiarów */
+  cursor: pointer;
+  border: 2px solid transparent; /* Domyślnie przezroczysta obwódka */
+  border-radius: 4px; /* Zaokrąglenie rogów */
+  transition: border-color 0.3s ease;
+  margin-right: 5px;
+}
+
+.thumbnail:hover {
+  border-color: rgba(0, 0, 0, 0.5); /* Obwódka przy najechaniu */
+}
+
+.activeThumbnail {
+  border-color: black; /* Obwódka aktywnego obrazu */
+}
+
+.rowControl {
+  margin: 0 10px;
+}
+.carousel-item {
+  display: none;
+  transition: transform 0.6s ease-in-out;
+}
+.carousel-item.active {
+  display: block;
+}
+.activeThumbnail {
+  border: 3px solid black; /* Grubość i kolor obwódki */
+}
+.backToMainPage{
+  margin-top: -1rem;
+}
+.arrowStyle{
+  color: rgb(94, 94, 94);
+  margin-right: 0.5rem;
+}

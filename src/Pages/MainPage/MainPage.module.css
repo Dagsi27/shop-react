@@ -1,0 +1,142 @@
+/* Ogólne style */
+.mainPageContainer {
+  background-color: #ebebeb;
+  padding: 40px;
+}
+.specialCategories {
+  width: 45%;
+}
+
+.mainSlider {
+  width: 55%;
+  max-height: 400px;
+}
+
+/* Caption fonts and edits */
+.captionText {
+  font-family: serif;
+}
+
+.shopButton {
+  background-color: #ffffff;
+  color: rgb(30, 30, 30);
+  border-width: 0px;
+  transition: 0.3s;
+  border-radius: 1px;
+}
+
+.shopButton:hover {
+  background-color: #343434;
+  color: #ffffff;
+}
+
+.shopButton:active {
+  background-color: #000000; 
+  transform: scale(0.95); 
+  color: #ffffff;
+}
+
+/* Carousel */
+.carouselInner {
+  height: 100%;
+  width: 100%;
+  border-width: 5px;
+  border-color: rgb(0, 0, 0);
+  border: 3px solid #ffffff;
+}
+
+.itemImage {
+  width: 1400px;
+  height: 400px;
+  object-fit: cover;
+}
+
+.carouselItemOverlay::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); 
+}
+
+.carouselCaption {
+  width: 40%;
+}
+
+.carouselCaption h2 {
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+.carouselCaption p {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: white;
+}
+
+.carouselCaption button {
+  font-size: 1rem;
+  padding: 10px 20px;
+}
+
+/* Section headers */
+.sectionHeader {
+  font-size: 1.75rem;
+  margin-bottom: 20px;
+}
+
+.rowText {
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+/* Special categories */
+.categoryRatio {
+  aspect-ratio: 3/4;
+}
+
+.categoryButton {
+  position: relative;
+  display: block;
+  width: 100%;
+  border: 2px solid #ffffff; 
+  border-radius: 10px; 
+  overflow: hidden;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s; 
+  cursor: pointer;
+}
+
+.categoryButton:hover {
+  transform: scale(1.05); 
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); 
+}
+
+.categoryImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+}
+
+.categoryButtonText {
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgb(58, 58, 58);
+  background-color: rgba(255, 255, 255, 0.784); 
+  border-radius: 2px;
+  border-width: 0px;
+  font-size: 1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: background-color 0.3s;
+  width: 70%;
+  height: 15%;
+}
+
+.categoryButton:hover .categoryButtonText {
+  background-color: rgba(253, 253, 253, 0.915); 
+}
