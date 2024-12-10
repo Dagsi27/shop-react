@@ -3,24 +3,19 @@ import useWebsiteTitle from "../../hooks/useWebsiteTitle";
 import { Link } from "react-router-dom";
 import SearchBar from "../../components/searchBar/SearchBar";
 import CatgoriesSection from "../../components/categoriesSection/CategoriesSection";
-import productData from "../../Data/products.json";
+import productData from "../../Data/products.json"; // Można usunąć jeśli nie jest potrzebny
+import categoriesData from "../../Data/categories.json";
 
 export default function MainPage() {
   useWebsiteTitle("Strona główna");
 
-  const data = productData.products;
-
-  // Pobierz unikalne kategorie z danych
-  const categories = Array.isArray(data)
-    ? [...new Set(data.map((product) => product))]
-    : [];
-    
-  console.log(categories)
+  // Pobierz kategorie z pliku categories.json
+  const categories = categoriesData.categories;
 
   return (
     <main className={styles.mainPageContainer}>
       {/* Główna zawartość */}
-      <div className={` d-flex justify-content-between ${styles.mainContent}`}>
+      <div className={`d-flex justify-content-between ${styles.mainContent}`}>
         {/* Slider */}
         <div
           className={`carousel slide ${styles.mainSlider}`}
@@ -66,7 +61,9 @@ export default function MainPage() {
                 className={`d-block w-100 ${styles.itemImage}`}
                 alt="Slide 1"
               />
-              <div className={`carousel-caption d-flex flex-column align-items-start text-start ${styles.carouselCaption}`}>
+              <div
+                className={`carousel-caption d-flex flex-column align-items-start text-start ${styles.carouselCaption}`}
+              >
                 <h2 className={styles.captionText}>Amazing Discounts</h2>
                 <p className={`${styles.captionText} ms-auto text-end`}>
                   Buy yourself a favor
@@ -80,7 +77,9 @@ export default function MainPage() {
                 className={`d-block w-100 ${styles.itemImage}`}
                 alt="Slide 2"
               />
-              <div className={`carousel-caption d-flex flex-column align-items-start text-start ${styles.carouselCaption}`}>
+              <div
+                className={`carousel-caption d-flex flex-column align-items-start text-start ${styles.carouselCaption}`}
+              >
                 <h2 className={styles.captionText}>Great Offers</h2>
                 <p className={`${styles.captionText} ms-auto text-end`}>
                   Take advantage of amazing deals
@@ -94,7 +93,9 @@ export default function MainPage() {
                 className={`d-block w-100 ${styles.itemImage}`}
                 alt="Slide 3"
               />
-              <div className={`carousel-caption d-flex flex-column align-items-start text-start ${styles.carouselCaption}`}>
+              <div
+                className={`carousel-caption d-flex flex-column align-items-start text-start ${styles.carouselCaption}`}
+              >
                 <h2 className={styles.captionText}>Trending Now</h2>
                 <p className={`${styles.captionText} ms-auto text-end`}>
                   Find what's popular today
@@ -111,7 +112,10 @@ export default function MainPage() {
             data-bs-target="#mainSlider"
             data-bs-slide="prev"
           >
-            <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span
+              className="carousel-control-prev-icon"
+              aria-hidden="true"
+            ></span>
             <span className="visually-hidden">Previous</span>
           </button>
           <button
@@ -120,7 +124,10 @@ export default function MainPage() {
             data-bs-target="#mainSlider"
             data-bs-slide="next"
           >
-            <span className="carousel-control-next-icon" aria-hidden="true"></span>
+            <span
+              className="carousel-control-next-icon"
+              aria-hidden="true"
+            ></span>
             <span className="visually-hidden">Next</span>
           </button>
         </div>
@@ -152,14 +159,11 @@ export default function MainPage() {
                 <button className={styles.categoryButtonText}>Popular</button>
               </div>
             </Link>
-            
           </div>
+
           {/* Sekcja wyszukiwania */}
           <SearchBar data={categories} />
         </div>
-
-
-        
       </div>
 
       {/* Sekcja kategorii */}

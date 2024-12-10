@@ -1,0 +1,125 @@
+{
+    "categories": [
+      {
+        "id": 1,
+        "name": "Technology",
+        "description": "Discover the latest trends and gadgets in technology.",
+        "image": "https://via.placeholder.com/150/33AFFF/FFFFFF?text=Technology"
+      },
+      {
+        "id": 2,
+        "name": "Health",
+        "description": "Stay informed about health and wellness tips.",
+        "image": "https://via.placeholder.com/150/33AFFF/FFFFFF?text=Health"
+      },
+      {
+        "id": 3,
+        "name": "Education",
+        "description": "Explore educational resources and learning opportunities.",
+        "image": "https://via.placeholder.com/150/33AFFF/FFFFFF?text=Education"
+      },
+      {
+        "id": 4,
+        "name": "Science",
+        "description": "Dive into the wonders of science and innovation.",
+        "image": "https://via.placeholder.com/150/33AFFF/FFFFFF?text=Science"
+      },
+      {
+        "id": 5,
+        "name": "Art",
+        "description": "Celebrate creativity and the world of art.",
+        "image": "https://via.placeholder.com/150/33AFFF/FFFFFF?text=Art"
+      },
+      {
+        "id": 6,
+        "name": "Music",
+        "description": "Experience the rhythm of life with music.",
+        "image": "https://via.placeholder.com/150/33AFFF/FFFFFF?text=Music"
+      },
+      {
+        "id": 7,
+        "name": "History",
+        "description": "Explore the events and figures that shaped our world.",
+        "image": "https://via.placeholder.com/150/33AFFF/FFFFFF?text=History"
+      },
+      {
+        "id": 8,
+        "name": "Sports",
+        "description": "Stay updated with the latest in the sports world.",
+        "image": "https://via.placeholder.com/150/33AFFF/FFFFFF?text=Sports"
+      },
+      {
+        "id": 9,
+        "name": "Travel",
+        "description": "Embark on journeys and explore new destinations.",
+        "image": "https://via.placeholder.com/150/33AFFF/FFFFFF?text=Travel"
+      },
+      {
+        "id": 10,
+        "name": "Food",
+        "description": "Savor the flavors of the culinary world.",
+        "image": "https://via.placeholder.com/150/33AFFF/FFFFFF?text=Food"
+      },
+      {
+        "id": 11,
+        "name": "Fashion",
+        "description": "Discover the latest trends in fashion and style.",
+        "image": "https://via.placeholder.com/150/33AFFF/FFFFFF?text=Fashion"
+      },
+      {
+        "id": 12,
+        "name": "Literature",
+        "description": "Dive into the world of books and literature.",
+        "image": "https://via.placeholder.com/150/33AFFF/FFFFFF?text=Literature"
+      },
+      {
+        "id": 13,
+        "name": "Movies",
+        "description": "Catch up on the latest in cinema and film.",
+        "image": "https://via.placeholder.com/150/33AFFF/FFFFFF?text=Movies"
+      },
+      {
+        "id": 14,
+        "name": "Gaming",
+        "description": "Explore the world of games and entertainment.",
+        "image": "https://via.placeholder.com/150/33AFFF/FFFFFF?text=Gaming"
+      },
+      {
+        "id": 15,
+        "name": "Nature",
+        "description": "Connect with the beauty of the natural world.",
+        "image": "https://via.placeholder.com/150/33AFFF/FFFFFF?text=Nature"
+      },
+      {
+        "id": 16,
+        "name": "Finance",
+        "description": "Stay informed about financial news and tips.",
+        "image": "https://via.placeholder.com/150/33AFFF/FFFFFF?text=Finance"
+      },
+      {
+        "id": 17,
+        "name": "Politics",
+        "description": "Understand the world of politics and governance.",
+        "image": "https://via.placeholder.com/150/33AFFF/FFFFFF?text=Politics"
+      },
+      {
+        "id": 18,
+        "name": "Psychology",
+        "description": "Explore the human mind and behavior.",
+        "image": "https://via.placeholder.com/150/33AFFF/FFFFFF?text=Psychology"
+      },
+      {
+        "id": 19,
+        "name": "Photography",
+        "description": "Capture the beauty of life through photography.",
+        "image": "https://via.placeholder.com/150/33AFFF/FFFFFF?text=Photography"
+      },
+      {
+        "id": 20,
+        "name": "Environment",
+        "description": "Learn about sustainability and protecting our planet.",
+        "image": "https://via.placeholder.com/150/33AFFF/FFFFFF?text=Environment"
+      }
+    ]
+  }
+  
