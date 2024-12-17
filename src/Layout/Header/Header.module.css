@@ -1,0 +1,64 @@
+.header {
+    background-color: #fff;
+  }
+  
+
+.shopTitle {
+    font-weight: bold; 
+    font-size: 1.2rem; 
+    color: #000; 
+    text-decoration: none; 
+  }
+  
+  .shopTitle:hover {
+    color: #5b5b5b;     
+  }
+  
+  
+  .titleContainer {
+    max-width: 4rem;
+  }
+  
+  .shopIcon {
+    width: 4rem;
+    height: auto;
+  } 
+  
+  .navLink {
+    color: #000;
+    transition: color 0.3s ease, background-color 0.3s ease;
+    padding: 10px 10px;
+    border-radius: 4px;
+    margin: 0.5rem;
+  }
+  
+  .navLink:hover {
+    color: #000;
+    background-color: #e1e1e1;
+  }
+  
+  .navLink:focus {
+    color: #ffffff;
+    background-color: #1c1c1c;
+  }
+  
+  .iconLink {
+    color: #000;
+    font-size: 1.2rem;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+  }
+  
+  .iconLink:hover {
+    color: #5b5b5b;
+  }
+  
+  .btn-dark {
+    background-color: #000;
+    border-color: #000;
+  }
+  
+  nav {
+    padding-left: 3rem;
+  }
+  

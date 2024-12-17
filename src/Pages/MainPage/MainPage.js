@@ -1,16 +1,65 @@
+import { useState, useEffect } from "react";
 import styles from "./MainPage.module.css";
 import useWebsiteTitle from "../../hooks/useWebsiteTitle";
 import { Link } from "react-router-dom";
 import SearchBar from "../../components/searchBar/SearchBar";
 import CatgoriesSection from "../../components/categoriesSection/CategoriesSection";
-import productData from "../../Data/products.json"; // Można usunąć jeśli nie jest potrzebny
-import categoriesData from "../../Data/categories.json";
 
 export default function MainPage() {
   useWebsiteTitle("Strona główna");
 
-  // Pobierz kategorie z pliku categories.json
-  const categories = categoriesData.categories;
+  // Stan dla kategorii, produktów, ładowania i błędów
+  const [categories, setCategories] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // Pobierz kategorie z API
+  const fetchCategories = async () => {
+    try {
+      const response = await fetch("/categories?limit=50&page=1");
+      if (!response.ok) {
+        throw new Error("Failed to fetch categories");
+      }
+      const data = await response.json();
+      console.log("Fetched Categories:", data.data || []);
+      setCategories(data.data || []); // Zakładamy, że API zwraca pole "categories"
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Pobierz produkty z API
+  const fetchProducts = async () => {
+    try {
+      const response = await fetch("/products");
+      if (!response.ok) {
+        throw new Error("Failed to fetch products");
+      }
+      const data = await response.json();
+      console.log("Fetched Products:", data.data || []);
+      setProducts(data.data || []); // Zakładamy, że API zwraca pole "data"
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchCategories();
+    fetchProducts();
+  }, []);
+
+  if (isLoading) {
+    return <div>Loading categories and products...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   return (
     <main className={styles.mainPageContainer}>
@@ -162,7 +211,7 @@ export default function MainPage() {
           </div>
 
           {/* Sekcja wyszukiwania */}
-          <SearchBar data={categories} />
+          <SearchBar data={products} />
         </div>
       </div>
 
