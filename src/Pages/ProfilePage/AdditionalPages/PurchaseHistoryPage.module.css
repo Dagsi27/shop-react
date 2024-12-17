@@ -1,0 +1,14 @@
+.purchaseHistory {
+    color: #333;
+  }
+  
+  .purchaseBox {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background: #f9f9f9;
+  }
+  
+  .purchaseBox h5 {
+    margin-bottom: 0.5rem;
+  }
+  

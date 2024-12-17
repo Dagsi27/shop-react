@@ -5,6 +5,7 @@ import ProductPage from './Pages/ProductPage/ProductPage';
 import ProductsPageList from './Pages/ProductsPageList/ProductsPageList';
 import LoginPage from './Pages/LoginPage/LoginPage';
 import RegisterPage from "./Pages/RegisterPage/RegisterPage"
+import ProfilePage from "./Pages/ProfilePage/ProfilePage"
 import Footer from './Layout/Footer/Footer';
 import Header from './Layout/Header/Header';
 import Layout from './Layout/Layout';
@@ -19,6 +20,7 @@ const content = (
       {/* Home Page */}
       <Route path="/" element={<HomePage />} />
       
+      <Route path="/profilePage" element={<ProfilePage/>}/>
       <Route path="/product/:productId" element={<ProductPage />} />
       <Route path="/products" element={<ProductsPageList />} />
       <Route path="/login" element={<LoginPage/>} />

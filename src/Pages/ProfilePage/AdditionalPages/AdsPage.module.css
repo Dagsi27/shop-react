@@ -1,0 +1,14 @@
+.adsPage {
+    color: #333;
+  }
+  
+  .adBox {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background: #f9f9f9;
+  }
+  
+  .adBox h5 {
+    margin-bottom: 0.5rem;
+  }
+  
