@@ -23,7 +23,7 @@ export default function MainPage() {
       }
       const data = await response.json();
       console.log("Fetched Categories:", data.data || []);
-      setCategories(data.data || []); // Zakładamy, że API zwraca pole "categories"
+      setCategories(data.data || []); 
     } catch (err) {
       setError(err.message);
     } finally {

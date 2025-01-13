@@ -6,6 +6,7 @@ import ProductsPageList from './Pages/ProductsPageList/ProductsPageList';
 import LoginPage from './Pages/LoginPage/LoginPage';
 import RegisterPage from "./Pages/RegisterPage/RegisterPage"
 import ProfilePage from "./Pages/ProfilePage/ProfilePage"
+import ProductForm from "./Pages/ProductForm/ProductForm"
 import Footer from './Layout/Footer/Footer';
 import Header from './Layout/Header/Header';
 import Layout from './Layout/Layout';
@@ -22,6 +23,7 @@ const content = (
       
       <Route path="/profilePage" element={<ProfilePage/>}/>
       <Route path="/product/:productId" element={<ProductPage />} />
+      <Route path="/productForm" element={<ProductForm />} />
       <Route path="/products" element={<ProductsPageList />} />
       <Route path="/login" element={<LoginPage/>} />
       <Route path="/register" element={<RegisterPage/>} />

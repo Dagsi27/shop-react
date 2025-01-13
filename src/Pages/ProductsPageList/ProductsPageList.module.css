@@ -1,87 +1,97 @@
 .productListContainer {
-    background-color: #f8f9fa; /* Jaśniejsze tło */
-    padding: 20px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
+  min-height: 80vh; 
+  background-color: #f8f9fa; 
+  padding: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; 
+}
 
-  .pagination {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-  }
-  
-  .pageItem {
-    margin: 0 5px;
-    list-style-type: none;
-  }
-  
-  .pageLink {
-    padding: 8px 12px;
-    background-color: #343a40; /* Ciemnoszare tło */
-    color: #fff;
-    border: 1px solid #343a40;
-    border-radius: 5px;
-    text-align: center;
-    cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease;
-  }
-  
-  .pageLink:hover {
-    background-color: #212529; /* Ciemniejsze tło przy najechaniu */
-    border-color: #212529;
-    color: #fff;
-  }
-  .pageLink:focus {
-    z-index: 3;
-    color: white;
-    background-color: #212529;
-    outline: 0;
-    box-shadow:0 0 5px rgba(108, 117, 125, 0.8); ;
-  }
-   
-  .pageItem.active .pageLink {
-    background-color: #495057;
-    border: 2px solid #adb5bd; 
-    color: #fff; 
-    box-shadow: 0 0 5px rgba(108, 117, 125, 0.8); 
-    outline: none; 
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  margin-bottom: 0;
 }
-.sortingBar:focus{
-  border: 2px solid #adb5bd; 
-  box-shadow:0 0 5px rgba(108, 117, 125, 0.8); ;
-  outline: none; 
-}
-.searchBar:focus{
-  border: 2px solid #adb5bd; 
-  outline: none; 
-  box-shadow:0 0 5px rgba(108, 117, 125, 0.8); ;
-}
-  
-  .pageItem.disabled .pageLink {
-    background-color: #495057; 
-    border-color: #495057;
-    color: #6c757d;
-    pointer-events: none;
-  }
-  
 
-  .productCard {
-    border: none;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    transition: transform 0.2s ease-in-out;
-  }
-  
-  .productCard:hover {
-    transform: scale(1.03);
-  }
-  
-  .productImage {
-    object-fit: cover;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-  }
+.pageItem {
+  margin: 0 5px;
+  list-style-type: none;
+}
+
+.pageLink {
+  padding: 8px 12px;
+  background-color: #343a40;
+  color: #fff;
+  border: 1px solid #343a40;
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.pageLink:hover {
+  background-color: #212529; 
+  border-color: #212529;
+  color: #fff;
+}
+.pageLink:focus {
+  z-index: 3;
+  color: white;
+  background-color: #212529;
+  outline: 0;
+  box-shadow: 0 0 5px rgba(108, 117, 125, 0.8);
+}
+
+.pageItem.active .pageLink {
+  background-color: #495057;
+  border: 2px solid #adb5bd;
+  color: #fff;
+  box-shadow: 0 0 5px rgba(108, 117, 125, 0.8);
+  outline: none;
+}
+
+.sortingBar:focus {
+  border: 2px solid #adb5bd;
+  box-shadow: 0 0 5px rgba(108, 117, 125, 0.8);
+  outline: none;
+}
+
+.searchBar:focus {
+  border: 2px solid #adb5bd;
+  outline: none;
+  box-shadow: 0 0 5px rgba(108, 117, 125, 0.8);
+}
+
+.pageItem.disabled .pageLink {
+  background-color: #495057;
+  border-color: #495057;
+  color: #6c757d;
+  pointer-events: none;
+}
+
+.productCard {
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease-in-out;
+}
+
+.productCard:hover {
+  transform: scale(1.03);
+}
+
+.productImage {
+  object-fit: cover;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+
+.productListContainer > .pagination {
+  margin-top: auto; 
+}

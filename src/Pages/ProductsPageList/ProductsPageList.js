@@ -1,74 +1,105 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import styles from "./ProductsPageList.module.css";
 
 const ProductsPageList = () => {
-  const products = Array.from({ length: 50 }, (_, index) => ({
-    id: index + 1,
-    name: `Produkt #${index + 1}`,
-    price: 100 + index * 10,
-    rating: (4 + Math.random()).toFixed(2),
-    reviews: Math.floor(Math.random() * 100) + 10,
-    bought: Math.floor(Math.random() * 1000),
-    stock: Math.floor(Math.random() * 200) + 10,
-    imageUrl: "https://via.placeholder.com/150",
-  }));
-
-  // Stany dla paginacji, sortowania i wyszukiwania
+  const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 20;
   const [sortCriteria, setSortCriteria] = useState("price");
   const [sortDirection, setSortDirection] = useState("asc");
-  const [searchQuery, setSearchQuery] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
-  // Funkcja do sortowania produktów
-  const sortedProducts = [...products].sort((a, b) => {
+  const itemsPerPage = 20;
+
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const categoryId = queryParams.get("category_id");
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch("/products");
+        if (!response.ok) {
+          throw new Error("Failed to fetch products");
+        }
+        const data = await response.json();
+        console.log("Fetched products:", data);
+        setProducts(data.data || []);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  useEffect(() => {
+    if (categoryId) {
+      setFilteredProducts(
+        products.filter((product) => product.category?.id === parseInt(categoryId))
+      );
+    } else {
+      setFilteredProducts(products);
+    }
+  }, [products, categoryId]);
+
+  const sortedProducts = [...filteredProducts].sort((a, b) => {
     let comparison = 0;
-
     switch (sortCriteria) {
       case "price":
         comparison = a.price - b.price;
         break;
       case "bought":
-        comparison = a.bought - b.bought;
+        comparison = a.soldQuantity - b.soldQuantity;
         break;
       case "stock":
-        comparison = a.stock - b.stock;
+        comparison = a.quantity - b.quantity;
         break;
       case "rating":
-        comparison = a.rating - b.rating;
+        comparison = parseFloat(a.rating || 0) - parseFloat(b.rating || 0);
         break;
       default:
         comparison = 0;
         break;
     }
-
     return sortDirection === "asc" ? comparison : -comparison;
   });
 
-  // Filtrowanie produktów na podstawie wyszukiwania
-  const filteredProducts = sortedProducts.filter((product) =>
-    product.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
-  // Logika paginacji
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const currentProducts = filteredProducts.slice(startIndex, endIndex);
-  const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+  const currentProducts = sortedProducts.slice(startIndex, endIndex);
+  const totalPages = Math.max(
+    Math.ceil(sortedProducts.length / itemsPerPage),
+    1
+  );
 
-  // Funkcja do renderowania paginacji
+  const handleProductClick = (productId, event) => {
+    // Check if the click was on the "Add to Cart" button
+    if (!event.target.classList.contains('btn')) {
+      navigate(`/product/${productId}`);
+    }
+  };
+
   const renderPagination = () => (
     <nav aria-label="Product pagination">
       <ul className="pagination justify-content-center mt-3 mb-3">
         <li
           className={`page-item ${
-            currentPage === 1 ? styles.disabled : ""
+            currentPage === 1 || filteredProducts.length === 0
+              ? styles.disabled
+              : ""
           } ${styles.pageItem}`}
         >
           <button
             className={`page-link ${styles.pageLink}`}
             onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+            disabled={filteredProducts.length === 0}
           >
             Poprzednia
           </button>
@@ -77,12 +108,15 @@ const ProductsPageList = () => {
           <li
             key={index + 1}
             className={`page-item ${styles.pageItem} ${
-              currentPage === index + 1 ? styles.active : ""
+              currentPage === index + 1 || filteredProducts.length === 0
+                ? styles.active
+                : ""
             }`}
           >
             <button
               className={`page-link ${styles.pageLink}`}
               onClick={() => setCurrentPage(index + 1)}
+              disabled={filteredProducts.length === 0}
             >
               {index + 1}
             </button>
@@ -90,7 +124,9 @@ const ProductsPageList = () => {
         ))}
         <li
           className={`page-item ${
-            currentPage === totalPages ? styles.disabled : ""
+            currentPage === totalPages || filteredProducts.length === 0
+              ? styles.disabled
+              : ""
           } ${styles.pageItem}`}
         >
           <button
@@ -98,6 +134,7 @@ const ProductsPageList = () => {
             onClick={() =>
               setCurrentPage((prev) => Math.min(prev + 1, totalPages))
             }
+            disabled={filteredProducts.length === 0}
           >
             Następna
           </button>
@@ -106,24 +143,37 @@ const ProductsPageList = () => {
     </nav>
   );
 
+  if (isLoading) {
+    return <div>Loading products...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
   return (
     <div className={`container ${styles.productListContainer}`}>
-      {/* Górny pasek opcji */}
       <div className="d-flex justify-content-between align-items-center mb-3">
-        <h2 className="text-light">Products Page List</h2>
+        <h2 className="text-light">
+          Products in {categoryId ? `Category ${categoryId}` : "All Categories"}
+        </h2>
         <div className="d-flex gap-2">
-          {/* Wyszukiwanie */}
           <input
             type="text"
             className={`form-control w-auto ${styles.searchBar}`}
-            placeholder="Wyszukaj produkt..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search product..."
+            onChange={(e) =>
+              e.target.value
+                ? setFilteredProducts(
+                    products.filter((product) =>
+                      product.name.toLowerCase().includes(e.target.value.toLowerCase())
+                    )
+                  )
+                : setFilteredProducts(products)
+            }
           />
-
-          {/* Sortowanie */}
           <select
-            className={`form-select w-auto  ${styles.sortingBar}`}
+            className={`form-select w-auto ${styles.sortingBar}`}
             onChange={(e) => setSortCriteria(e.target.value)}
             value={sortCriteria}
           >
@@ -143,42 +193,55 @@ const ProductsPageList = () => {
         </div>
       </div>
 
-      {/* Górna paginacja */}
       {renderPagination()}
 
-      {/* Lista produktów */}
       <div className="row g-4">
-        {currentProducts.map((product) => (
-          <div key={product.id} className="col-6 col-md-4 col-lg-3">
-            <div className={`card ${styles.productCard} h-100`}>
-              <img
-                src={product.imageUrl}
-                className={`card-img-top ${styles.productImage}`}
-                alt={product.name}
-              />
-              <div className="card-body d-flex flex-column">
-                <h6 className="card-title">{product.name}</h6>
-                <p className="card-text mb-1">
-                  <strong>Cena: {product.price} zł</strong>
-                </p>
-                <div className="mb-2">
-                  <span className="text-warning">&#9733;</span> {product.rating}{" "}
-                  ({product.reviews} opinii)
+        {products.length === 0 ? (
+          <div className="alert alert-warning w-100 text-center" role="alert">
+            Brak produktów w tej kategorii.
+          </div>
+        ) : filteredProducts.length === 0 ? (
+          <div className="alert alert-info w-100 text-center" role="alert">
+            Nic nie odpowiada Twojemu wyszukiwaniu.
+          </div>
+        ) : (
+          currentProducts.map((product) => (
+            <div 
+              key={product.id} 
+              className="col-6 col-md-4 col-lg-3"
+              onClick={(e) => handleProductClick(product.id, e)}
+              style={{ cursor: 'pointer' }}
+            >
+              <div className={`card ${styles.productCard} h-100`}>
+                <img
+                  src={product.imageUrl || '/placeholder-image.jpg'}
+                  className={`card-img-top ${styles.productImage}`}
+                  alt={product.name}
+                />
+                <div className="card-body d-flex flex-column">
+                  <h6 className="card-title">{product.name}</h6>
+                  <p className="card-text mb-1">
+                    <strong>Cena: {product.price} zł</strong>
+                  </p>
+                  <p className="text-muted small">
+                    Dostępne sztuki: {product.quantity}
+                  </p>
+                  <p className="text-muted small">
+                    Kupiono: {product.soldQuantity} razy
+                  </p>
+                  <button 
+                    className="btn btn-warning mt-auto"
+                    onClick={(e) => e.stopPropagation()} // Prevent navigation when clicking the button
+                  >
+                    Dodaj do koszyka
+                  </button>
                 </div>
-                <p className="text-muted small">Kupiono: {product.bought} razy</p>
-                <p className="text-muted small">
-                  Dostępne sztuki: {product.stock}
-                </p>
-                <button className="btn btn-warning mt-auto">
-                  Dodaj do koszyka
-                </button>
               </div>
             </div>
-          </div>
-        ))}
+          ))
+        )}
       </div>
 
-      {/* Dolna paginacja */}
       {renderPagination()}
     </div>
   );

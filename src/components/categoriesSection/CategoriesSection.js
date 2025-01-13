@@ -50,18 +50,19 @@ const CategoriesList = ({ categories }) => {
           .map((category, index) => (
             <div key={index} className="col-6 col-md-4 col-lg-2 mb-4">
               <Link
-                to={`/product/${category.id}`}
-                className="text-decoration-none"
-              >
-                <div className="ratio-container rounded-1 border border-light">
-                  <img
-                    src={`https://via.placeholder.com/300x225?text=${category.name}`}
-                    className="img-fluid rounded-1"
-                    alt={category.name}
-                  />
-                </div>
-                <p className="mt-2">{category.name}</p>
-              </Link>
+              to={`/products?category_id=${category.id}`}
+              className="text-decoration-none"
+            >
+              <div className="ratio-container rounded-1 border border-light">
+                <img
+                  src={`https://via.placeholder.com/300x225?text=${category.name}`}
+                  className="img-fluid rounded-1"
+                  alt={category.name}
+                />
+              </div>
+              <p className="mt-2">{category.name}</p>
+            </Link>
+
 
             </div>
           ))}
