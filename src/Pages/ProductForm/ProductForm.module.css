@@ -1,295 +1,422 @@
-/* ProductForm.module.css */
 .formContainer {
-    max-width: 1000px;
-    margin: 2rem auto;
-    padding: 2rem;
-    background-color: white;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.formTitle {
+  color: #333;
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.formGroup label {
+  font-weight: 500;
+  color: #333;
+}
+
+.input,
+.textarea,
+.select {
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background-color: white;
+}
+
+.input:focus,
+.textarea:focus,
+.select:focus {
+  outline: none;
+  border-color: #666;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+}
+
+.inputError {
+  border-color: #dc3545;
+}
+
+.inputError:focus {
+  box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.25);
+}
+
+.errorMessage {
+  color: #dc3545;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+.textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+/* Styles dla wyszukiwania kategorii */
+.categorySearchContainer {
+  position: relative;
+  width: 100%;
+}
+
+.searchInputWrapper {
+  position: relative;
+}
+
+.searchInputWrapper i {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #666;
+}
+
+.searchInputWrapper input {
+  padding-left: 35px;
+}
+
+.categoryDropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.categoryOption {
+  padding: 0.75rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.categoryOption:hover {
+  background-color: #f5f5f5;
+}
+
+.noCategories {
+  padding: 0.75rem;
+  text-align: center;
+  color: #666;
+}
+
+.selectedCategories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.selectedCategory {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #f5f5f5;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.removeCategory {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: #666;
+  display: flex;
+  align-items: center;
+}
+
+.removeCategory:hover {
+  color: #000;
+}
+
+/* Style dla radio buttons */
+.radioGroup {
+  display: flex;
+  gap: 2rem;
+  margin-top: 0.5rem;
+}
+
+.radioLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.radioInput {
+  cursor: pointer;
+  width: 16px;
+  height: 16px;
+}
+
+/* Style dla siatki zdjęć */
+.imageGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 1rem;
+  margin-top: 1rem;
+  min-height: 150px;
+  padding: 0.5rem;
+  background-color: #fafafa;
+  border-radius: 8px;
+}
+
+.imageUploadBox {
+  aspect-ratio: 1;
+  border: 2px dashed #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  background-color: #f8f9fa;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: center;
+  transform: scale(1);
+}
+
+.imageUploadBox[draggable="true"] {
+  cursor: move;
+}
+
+
+.imageUploadBox.draggedOver {
+  border: 2px dashed #4a90e2;
+  background-color: rgba(74, 144, 226, 0.1);
+  animation: pulse 1.5s infinite;
+}
+
+.mainImage {
+  border: 2px solid #333;
+  position: relative;
+}
+
+.mainImage::after {
+  content: 'Zdjęcie Tytułowe';
+  position: absolute;
+  top: 10px;
+  left: 5px;
+  background-color: #333;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mainImage:hover::after {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.mainImage .uploadPlaceholder {
+  transform: scale(1.2);
+}
+
+.mainImage .uploadPlaceholder span {
+  font-weight: 500;
+}
+
+.mainImage.draggedOver {
+  border: 2px dashed #333;
+  background-color: rgba(51, 51, 51, 0.1);
+  animation: dropTarget 1.5s infinite;
+}
+
+.imageUploadLabel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.imageUploadLabel:hover {
+  background-color: #f0f0f0;
+  transform: scale(1.02);
+}
+
+.imageInput {
+  display: none;
+}
+
+.uploadPlaceholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: #666;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.uploadPlaceholder i {
+  font-size: 1.5rem;
+  transition: transform 0.3s ease;
+}
+
+.imageUploadLabel:hover .uploadPlaceholder {
+  transform: scale(1.1);
+  color: #333;
+}
+
+.imageUploadLabel:hover .uploadPlaceholder i {
+  transform: rotate(180deg);
+}
+
+.imagePreviewContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.imagePreview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.imageUploadBox:hover .imagePreview {
+  transform: scale(1.05);
+  filter: brightness(1.1);
+  cursor: pointer;
+}
+
+.removeImage {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  transform: scale(0.8);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.imageUploadBox:hover .removeImage {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.removeImage:hover {
+  background: white;
+  transform: scale(1.1);
+}
+
+.removeImage i {
+  font-size: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.removeImage:hover i {
+  transform: rotate(90deg);
+}
+
+/* Submit button */
+.submitButton {
+  margin-top: 1rem;
+  padding: 1rem 2rem;
+  background-color: #333;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.submitButton:hover {
+  background-color: #000;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.submitButton i {
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
+}
+
+.submitButton:hover i {
+  transform: rotate(180deg);
+}
+
+.submitError {
+  color: #dc3545;
+  text-align: center;
+  margin-top: 1rem;
+  padding: 0.75rem;
+  background-color: rgba(220, 53, 69, 0.1);
+  border-radius: 4px;
+}
+
+/* Keyframe Animations */
+@keyframes pulse {
+  0% {
+      transform: scale(1);
+      background-color: rgba(74, 144, 226, 0.1);
   }
-  
-  .formTitle {
-    color: #333;
-    text-align: center;
-    margin-bottom: 2rem;
-    font-size: 1.8rem;
-    font-weight: 600;
+  50% {
+      transform: scale(1.02);
+      background-color: rgba(74, 144, 226, 0.2);
   }
-  
-  .form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
+  100% {
+      transform: scale(1);
+      background-color: rgba(74, 144, 226, 0.1);
   }
-  
-  .formGroup {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+}
+
+
+@keyframes dropTarget {
+  0% {
+      background-color: rgba(51, 51, 51, 0.1);
   }
-  
-  .formGroup label {
-    font-weight: 500;
-    color: #333;
+  50% {
+      background-color: rgba(51, 51, 51, 0.2);
   }
-  
-  .input,
-  .textarea,
-  .select {
-    padding: 0.75rem;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 1rem;
-    transition: all 0.3s ease;
-    background-color: white;
+  100% {
+      background-color: rgba(51, 51, 51, 0.1);
   }
-  
-  .input:focus,
-  .textarea:focus,
-  .select:focus {
-    outline: none;
-    border-color: #666;
-    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
-  }
-  
-  .inputError {
-    border-color: #dc3545;
-  }
-  
-  .inputError:focus {
-    box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.25);
-  }
-  
-  .errorMessage {
-    color: #dc3545;
-    font-size: 0.875rem;
-    margin-top: 0.25rem;
-  }
-  
-  .textarea {
-    min-height: 120px;
-    resize: vertical;
-  }
-  
-  /* Styles dla wyszukiwania kategorii */
-  .categorySearchContainer {
-    position: relative;
-    width: 100%;
-  }
-  
-  .searchInputWrapper {
-    position: relative;
-  }
-  
-  .searchInputWrapper i {
-    position: absolute;
-    left: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #666;
-  }
-  
-  .searchInputWrapper input {
-    padding-left: 35px;
-  }
-  
-  .categoryDropdown {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background: white;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    max-height: 200px;
-    overflow-y: auto;
-    z-index: 1000;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .categoryOption {
-    padding: 0.75rem;
-    cursor: pointer;
-    transition: background-color 0.2s;
-  }
-  
-  .categoryOption:hover {
-    background-color: #f5f5f5;
-  }
-  
-  .noCategories {
-    padding: 0.75rem;
-    text-align: center;
-    color: #666;
-  }
-  
-  .selectedCategories {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-top: 1rem;
-  }
-  
-  .selectedCategory {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    background-color: #f5f5f5;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    font-size: 0.9rem;
-  }
-  
-  .removeCategory {
-    background: none;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-    color: #666;
-    display: flex;
-    align-items: center;
-  }
-  
-  .removeCategory:hover {
-    color: #000;
-  }
-  
-  /* Style dla radio buttons */
-  .radioGroup {
-    display: flex;
-    gap: 2rem;
-    margin-top: 0.5rem;
-  }
-  
-  .radioLabel {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    cursor: pointer;
-  }
-  
-  .radioInput {
-    cursor: pointer;
-    width: 16px;
-    height: 16px;
-  }
-  
-  /* Style dla siatki zdjęć */
-  .imageGrid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1rem;
-    margin-top: 1rem;
-  }
-  
-  .imageUploadBox {
-    aspect-ratio: 1;
-    border: 2px dashed #ddd;
-    border-radius: 8px;
-    overflow: hidden;
-    position: relative;
-    background-color: #f8f9fa;
-  }
-  
-  .imageUploadLabel {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-    cursor: pointer;
-    transition: background-color 0.2s;
-  }
-  
-  .imageUploadLabel:hover {
-    background-color: #f0f0f0;
-  }
-  
-  .imageInput {
-    display: none;
-  }
-  
-  .uploadPlaceholder {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-    color: #666;
-  }
-  
-  .uploadPlaceholder i {
-    font-size: 1.5rem;
-  }
-  
-  .imagePreviewContainer {
-    position: relative;
-    width: 100%;
-    height: 100%;
-  }
-  
-  .imagePreview {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  
-  .removeImage {
-    position: absolute;
-    top: 0.5rem;
-    right: 0.5rem;
-    background: rgba(255, 255, 255, 0.9);
-    border: none;
-    border-radius: 50%;
-    width: 24px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    padding: 0;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .removeImage:hover {
-    background: white;
-  }
-  
-  .removeImage i {
-    font-size: 1rem;
-  }
-  
-  /* Submit button */
-  .submitButton {
-    margin-top: 1rem;
-    padding: 1rem 2rem;
-    background-color: #333;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 1rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-  }
-  
-  .submitButton:hover {
-    background-color: #000;
-  }
-  
-  .submitButton i {
-    font-size: 1.2rem;
-  }
-  
-  .submitError {
-    color: #dc3545;
-    text-align: center;
-    margin-top: 1rem;
-    padding: 0.75rem;
-    background-color: rgba(220, 53, 69, 0.1);
-    border-radius: 4px;
-  }
-  
+}

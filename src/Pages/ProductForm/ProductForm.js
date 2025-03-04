@@ -1,37 +1,82 @@
 // ProductForm.jsx
-import React, { useState, useEffect } from 'react';
-import styles from './ProductForm.module.css';
-import 'bootstrap-icons/font/bootstrap-icons.css';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import styles from "./ProductForm.module.css";
+import "bootstrap-icons/font/bootstrap-icons.css";
+import axios from "axios";
 
 const ProductForm = () => {
   const [formData, setFormData] = useState({
-    title: '',
-    price: '',
+    title: "",
+    price: "",
     selectedCategories: [],
-    description: '',
-    condition: 'new',
+    description: "",
+    condition: "new",
     images: Array(8).fill(null),
-    contactEmail: '',
-    contactPhone: '',
-    location: ''
+    contactEmail: "",
+    contactPhone: "",
+    location: "",
   });
 
   const [categories, setCategories] = useState([]);
   const [filteredCategories, setFilteredCategories] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [showCategoryDropdown, setShowCategoryDropdown] = useState(false);
   const [errors, setErrors] = useState({});
+  const [draggedIndex, setDraggedIndex] = useState(null);
+  const [draggedOverIndex, setDraggedOverIndex] = useState(null);
+
+  const handleDragStart = (e, index) => {
+    setDraggedIndex(index);
+    e.currentTarget.classList.add(styles.dragging);
+  };
+
+  const handleDragEnd = (e) => {
+    e.currentTarget.classList.remove(styles.dragging);
+    setDraggedIndex(null);
+    setDraggedOverIndex(null);
+  };
+
+  const handleDragOver = (e, index) => {
+    e.preventDefault();
+    setDraggedOverIndex(index);
+  };
+
+  const handleDrop = (e, dropIndex) => {
+    e.preventDefault();
+
+    if (draggedIndex === null || draggedIndex === dropIndex) return;
+
+    const newImages = [...formData.images];
+    const draggedImage = newImages[draggedIndex];
+
+    newImages[draggedIndex] = null;
+    
+    if (newImages[dropIndex]) {
+      const targetImage = newImages[dropIndex];
+      newImages[draggedIndex] = targetImage;
+    }
+
+    newImages[dropIndex] = draggedImage;
+    
+    setFormData((prev) => ({
+      ...prev,
+      images: newImages,
+    }));
+
+    setDraggedIndex(null);
+    setDraggedOverIndex(null);
+  };
 
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get('/categories');
-        // Sprawdzamy czy mamy dostęp do data w odpowiedzi
-          setCategories(response.data.data);
-          setFilteredCategories(response.data.data);
+        const response = await axios.get("/categories");
+        
+        setCategories(response.data.data);
+        setFilteredCategories(response.data.data);
+        console.log(response.data.data)
       } catch (error) {
-        console.error('Błąd podczas pobierania kategorii:', error);
+        console.error("Błąd podczas pobierania kategorii:", error);
         setCategories([]);
         setFilteredCategories([]);
       }
@@ -40,15 +85,12 @@ const ProductForm = () => {
   }, []);
   const formatPrice = (value) => {
     // Usuń wszystkie znaki oprócz cyfr i kropki
-    const cleaned = value.replace(/[^\d.]/g, '');
-    
-    // Sprawdź czy jest więcej niż jedna kropka
-    const dots = cleaned.split('.').length - 1;
-    if (dots > 1) return formData.price;
+    const cleaned = value.replace(/[^\d.]/g, "");
 
-    // Jeśli są cyfry po kropce, ogranicz do 2
-    if (cleaned.includes('.')) {
-      const [whole, decimal] = cleaned.split('.');
+    const dots = cleaned.split(".").length - 1;
+    if (dots > 1) return formData.price;
+    if (cleaned.includes(".")) {
+      const [whole, decimal] = cleaned.split(".");
       return `${whole}.${decimal.slice(0, 2)}`;
     }
 
@@ -58,48 +100,45 @@ const ProductForm = () => {
   const handlePriceChange = (e) => {
     const rawValue = e.target.value;
     const formattedPrice = formatPrice(rawValue);
-    
-    // Konwertuj na liczbę do walidacji
     const numericValue = parseFloat(formattedPrice);
 
-    if (formattedPrice !== '') {
+    if (formattedPrice !== "") {
       if (numericValue > 10000000) {
-        setErrors(prev => ({
+        setErrors((prev) => ({
           ...prev,
-          price: 'Maksymalna cena to 10,000,000.00 PLN'
+          price: "Maksymalna cena to 10,000,000.00 PLN",
         }));
         return;
       }
     }
 
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      price: formattedPrice
+      price: formattedPrice,
     }));
 
-    // Wyczyść błąd jeśli wartość jest poprawna
     if (errors.price) {
-      setErrors(prev => ({
+      setErrors((prev) => ({
         ...prev,
-        price: ''
+        price: "",
       }));
     }
   };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    
-    if (name === 'price') return;
 
-    setFormData(prev => ({
+    if (name === "price") return;
+
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
 
     if (errors[name]) {
-      setErrors(prev => ({
+      setErrors((prev) => ({
         ...prev,
-        [name]: ''
+        [name]: "",
       }));
     }
   };
@@ -108,40 +147,41 @@ const ProductForm = () => {
     const value = e.target.value;
     setSearchTerm(value);
     setShowCategoryDropdown(true);
-    
+
     if (!Array.isArray(categories)) {
-      console.error('Categories is not an array:', categories);
+      console.error("Categories is not an array:", categories);
       return;
     }
-    
-    const filtered = categories.filter(category => 
+
+    const filtered = categories.filter((category) =>
       category?.name?.toLowerCase().includes(value.toLowerCase())
     );
     setFilteredCategories(filtered);
   };
-  
 
   const handleCategorySelect = (category) => {
-    if (!formData.selectedCategories.find(cat => cat.id === category.id)) {
-      setFormData(prev => ({
+    if (!formData.selectedCategories.find((cat) => cat.id === category.id)) {
+      setFormData((prev) => ({
         ...prev,
-        selectedCategories: [...prev.selectedCategories, category]
+        selectedCategories: [...prev.selectedCategories, category],
       }));
       if (errors.categories) {
-        setErrors(prev => ({
+        setErrors((prev) => ({
           ...prev,
-          categories: ''
+          categories: "",
         }));
       }
     }
     setShowCategoryDropdown(false);
-    setSearchTerm('');
+    setSearchTerm("");
   };
 
   const handleRemoveCategory = (categoryId) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      selectedCategories: prev.selectedCategories.filter(cat => cat.id !== categoryId)
+      selectedCategories: prev.selectedCategories.filter(
+        (cat) => cat.id !== categoryId
+      ),
     }));
   };
 
@@ -149,9 +189,9 @@ const ProductForm = () => {
     const file = e.target.files[0];
     if (file) {
       if (file.size > 5000000) {
-        setErrors(prev => ({
+        setErrors((prev) => ({
           ...prev,
-          images: 'Plik jest zbyt duży. Maksymalny rozmiar to 5MB.'
+          images: "Plik jest zbyt duży. Maksymalny rozmiar to 5MB.",
         }));
         return;
       }
@@ -160,14 +200,14 @@ const ProductForm = () => {
       reader.onloadend = () => {
         const newImages = [...formData.images];
         newImages[index] = reader.result;
-        setFormData(prev => ({
+        setFormData((prev) => ({
           ...prev,
-          images: newImages
+          images: newImages,
         }));
         if (errors.images) {
-          setErrors(prev => ({
+          setErrors((prev) => ({
             ...prev,
-            images: ''
+            images: "",
           }));
         }
       };
@@ -178,9 +218,9 @@ const ProductForm = () => {
   const handleRemoveImage = (index) => {
     const newImages = [...formData.images];
     newImages[index] = null;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      images: newImages
+      images: newImages,
     }));
   };
 
@@ -188,41 +228,41 @@ const ProductForm = () => {
     const newErrors = {};
 
     if (!formData.title.trim()) {
-      newErrors.title = 'Tytuł jest wymagany';
+      newErrors.title = "Tytuł jest wymagany";
     }
 
     // Walidacja ceny
     if (!formData.price) {
-      newErrors.price = 'Cena jest wymagana';
+      newErrors.price = "Cena jest wymagana";
     } else {
       const priceValue = parseFloat(formData.price);
       if (isNaN(priceValue) || priceValue <= 0) {
-        newErrors.price = 'Wprowadź prawidłową cenę większą niż 0';
+        newErrors.price = "Wprowadź prawidłową cenę większą niż 0";
       } else if (priceValue > 10000000) {
-        newErrors.price = 'Maksymalna cena to 10,000,000.00 PLN';
+        newErrors.price = "Maksymalna cena to 10,000,000.00 PLN";
       }
     }
 
     if (formData.selectedCategories.length === 0) {
-      newErrors.categories = 'Wybierz przynajmniej jedną kategorię';
+      newErrors.categories = "Wybierz przynajmniej jedną kategorię";
     }
 
     if (!formData.description.trim()) {
-      newErrors.description = 'Opis jest wymagany';
+      newErrors.description = "Opis jest wymagany";
     }
 
-    if (!formData.images.some(img => img !== null)) {
-      newErrors.images = 'Dodaj przynajmniej jedno zdjęcie';
+    if (!formData.images.some((img) => img !== null)) {
+      newErrors.images = "Dodaj przynajmniej jedno zdjęcie";
     }
 
     if (!formData.contactEmail) {
-      newErrors.contactEmail = 'Email jest wymagany';
+      newErrors.contactEmail = "Email jest wymagany";
     } else if (!/\S+@\S+\.\S+/.test(formData.contactEmail)) {
-      newErrors.contactEmail = 'Podaj prawidłowy adres email';
+      newErrors.contactEmail = "Podaj prawidłowy adres email";
     }
 
     if (!formData.location.trim()) {
-      newErrors.location = 'Lokalizacja jest wymagana';
+      newErrors.location = "Lokalizacja jest wymagana";
     }
 
     setErrors(newErrors);
@@ -237,13 +277,13 @@ const ProductForm = () => {
     }
 
     try {
-      console.log('Dane formularza:', formData);
+      console.log("Dane formularza:", formData);
       // const response = await axios.post('/api/advertisements', formData);
     } catch (error) {
-      console.error('Błąd podczas wysyłania formularza:', error);
-      setErrors(prev => ({
+      console.error("Błąd podczas wysyłania formularza:", error);
+      setErrors((prev) => ({
         ...prev,
-        submit: 'Wystąpił błąd podczas wysyłania formularza. Spróbuj ponownie.'
+        submit: "Wystąpił błąd podczas wysyłania formularza. Spróbuj ponownie.",
       }));
     }
   };
@@ -261,10 +301,14 @@ const ProductForm = () => {
             name="title"
             value={formData.title}
             onChange={handleInputChange}
-            className={`${styles.input} ${errors.title ? styles.inputError : ''}`}
+            className={`${styles.input} ${
+              errors.title ? styles.inputError : ""
+            }`}
             placeholder="Wpisz tytuł ogłoszenia"
           />
-          {errors.title && <span className={styles.errorMessage}>{errors.title}</span>}
+          {errors.title && (
+            <span className={styles.errorMessage}>{errors.title}</span>
+          )}
         </div>
 
         {/* Cena */}
@@ -276,10 +320,14 @@ const ProductForm = () => {
             name="price"
             value={formData.price}
             onChange={handlePriceChange}
-            className={`${styles.input} ${errors.price ? styles.inputError : ''}`}
+            className={`${styles.input} ${
+              errors.price ? styles.inputError : ""
+            }`}
             placeholder="0.00"
           />
-          {errors.price && <span className={styles.errorMessage}>{errors.price}</span>}
+          {errors.price && (
+            <span className={styles.errorMessage}>{errors.price}</span>
+          )}
         </div>
 
         {/* Kategorie */}
@@ -292,15 +340,17 @@ const ProductForm = () => {
                 type="text"
                 value={searchTerm}
                 onChange={handleSearchChange}
-                className={`${styles.input} ${errors.categories ? styles.inputError : ''}`}
+                className={`${styles.input} ${
+                  errors.categories ? styles.inputError : ""
+                }`}
                 placeholder="Wyszukaj kategorię..."
               />
             </div>
-            
+
             {showCategoryDropdown && searchTerm && (
               <div className={styles.categoryDropdown}>
                 {filteredCategories.length > 0 ? (
-                  filteredCategories.map(category => (
+                  filteredCategories.map((category) => (
                     <div
                       key={category.id}
                       className={styles.categoryOption}
@@ -319,7 +369,7 @@ const ProductForm = () => {
           </div>
 
           <div className={styles.selectedCategories}>
-            {formData.selectedCategories.map(category => (
+            {formData.selectedCategories.map((category) => (
               <div key={category.id} className={styles.selectedCategory}>
                 {category.name}
                 <button
@@ -332,7 +382,9 @@ const ProductForm = () => {
               </div>
             ))}
           </div>
-          {errors.categories && <span className={styles.errorMessage}>{errors.categories}</span>}
+          {errors.categories && (
+            <span className={styles.errorMessage}>{errors.categories}</span>
+          )}
         </div>
 
         {/* Stan produktu */}
@@ -344,7 +396,7 @@ const ProductForm = () => {
                 type="radio"
                 name="condition"
                 value="new"
-                checked={formData.condition === 'new'}
+                checked={formData.condition === "new"}
                 onChange={handleInputChange}
                 className={styles.radioInput}
               />
@@ -355,7 +407,7 @@ const ProductForm = () => {
                 type="radio"
                 name="condition"
                 value="used"
-                checked={formData.condition === 'used'}
+                checked={formData.condition === "used"}
                 onChange={handleInputChange}
                 className={styles.radioInput}
               />
@@ -372,11 +424,15 @@ const ProductForm = () => {
             name="description"
             value={formData.description}
             onChange={handleInputChange}
-            className={`${styles.textarea} ${errors.description ? styles.inputError : ''}`}
+            className={`${styles.textarea} ${
+              errors.description ? styles.inputError : ""
+            }`}
             placeholder="Opisz swój produkt"
             rows="5"
           />
-          {errors.description && <span className={styles.errorMessage}>{errors.description}</span>}
+          {errors.description && (
+            <span className={styles.errorMessage}>{errors.description}</span>
+          )}
         </div>
 
         {/* Zdjęcia */}
@@ -384,10 +440,28 @@ const ProductForm = () => {
           <label>Zdjęcia produktu (max. 8)</label>
           <div className={styles.imageGrid}>
             {formData.images.map((image, index) => (
-              <div key={index} className={styles.imageUploadBox}>
+              <div
+                key={index}
+                className={`${styles.imageUploadBox} 
+          ${index === 0 ? styles.mainImage : ""} 
+          ${draggedOverIndex === index ? styles.draggedOver : ""}`}
+                draggable={image !== null}
+                onDragStart={(e) => handleDragStart(e, index)}
+                onDragEnd={handleDragEnd}
+                onDragOver={(e) => handleDragOver(e, index)}
+                onDrop={(e) => handleDrop(e, index)}
+              >
                 {image ? (
                   <div className={styles.imagePreviewContainer}>
-                    <img src={image} alt={`Zdjęcie ${index + 1}`} className={styles.imagePreview} />
+                    <img
+                      src={image}
+                      alt={`${
+                        index === 0
+                          ? "Zdjęcie tytułowe"
+                          : `Zdjęcie ${index + 1}`
+                      }`}
+                      className={styles.imagePreview}
+                    />
                     <button
                       type="button"
                       onClick={() => handleRemoveImage(index)}
@@ -406,31 +480,21 @@ const ProductForm = () => {
                     />
                     <div className={styles.uploadPlaceholder}>
                       <i className="bi bi-plus-lg"></i>
-                      <span>Dodaj zdjęcie</span>
+                      <span>
+                        {index === 0
+                          ? "Dodaj zdjęcie tytułowe"
+                          : "Dodaj zdjęcie"}
+                      </span>
                     </div>
                   </label>
                 )}
               </div>
             ))}
           </div>
-          {errors.images && <span className={styles.errorMessage}>{errors.images}</span>}
+          {errors.images && (
+            <span className={styles.errorMessage}>{errors.images}</span>
+          )}
         </div>
-
-        {/* Lokalizacja */}
-        <div className={styles.formGroup}>
-          <label htmlFor="location">Lokalizacja</label>
-          <input
-            type="text"
-            id="location"
-            name="location"
-            value={formData.location}
-            onChange={handleInputChange}
-            className={`${styles.input} ${errors.location ? styles.inputError : ''}`}
-            placeholder="Podaj lokalizację"
-          />
-          {errors.location && <span className={styles.errorMessage}>{errors.location}</span>}
-        </div>
-
         {/* Dane kontaktowe */}
         <div className={styles.formGroup}>
           <label htmlFor="contactEmail">Email kontaktowy</label>
@@ -440,10 +504,14 @@ const ProductForm = () => {
             name="contactEmail"
             value={formData.contactEmail}
             onChange={handleInputChange}
-            className={`${styles.input} ${errors.contactEmail ? styles.inputError : ''}`}
+            className={`${styles.input} ${
+              errors.contactEmail ? styles.inputError : ""
+            }`}
             placeholder="twoj@email.com"
           />
-          {errors.contactEmail && <span className={styles.errorMessage}>{errors.contactEmail}</span>}
+          {errors.contactEmail && (
+            <span className={styles.errorMessage}>{errors.contactEmail}</span>
+          )}
         </div>
 
         <div className={styles.formGroup}>
@@ -465,7 +533,9 @@ const ProductForm = () => {
           Opublikuj ogłoszenie
         </button>
 
-        {errors.submit && <div className={styles.submitError}>{errors.submit}</div>}
+        {errors.submit && (
+          <div className={styles.submitError}>{errors.submit}</div>
+        )}
       </form>
     </div>
   );
