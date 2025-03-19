@@ -1,23 +1,83 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './LoginPage.module.css';
 import { useApiJson } from "../../config/api";
 import { toast } from "react-toastify";
+import { useUser } from "../../context/UserContext";
+import axios from 'axios';
 
 const LoginPage = () => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  
+  const navigate = useNavigate();
+  const { login } = useUser();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
+    
+    if (!username.trim() || !password.trim()) {
+      setError('Please enter both email and password');
+      return;
+    }
+
+    try {
+      setLoading(true);
+      
+      const loginData = {
+        email: String(username).trim(),
+        password: String(password)
+      };
+      
+      const response = await axios.post('/api/login', loginData);
+      
+      if (response.data && response.data.token) {
+        const token = response.data.token;
+        
+        login(loginData.email, token);
+        
+        toast.success('Login successful!');
+        navigate('/');
+      } else {
+        throw new Error('Invalid response format');
+      }
+    } catch (err) {
+      if (err.response && err.response.data && err.response.data.message) {
+        setError(err.response.data.message);
+        toast.error(err.response.data.message);
+      } else {
+        setError('Login failed. Please check your credentials and try again.');
+        toast.error('Login failed. Please try again.');
+      }
+      console.error('Login error:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className={`${styles.pageWrapper} d-flex justify-content-center align-items-center`}>
       <div className={styles.cardContainer}>
         <div className={styles.leftSection}>
           <h2 className="text-center mb-4">Welcome Back!</h2>
           <p className="text-center text-muted mb-4">Login to continue</p>
-          <form>
+          
+          {error && <div className="alert alert-danger">{error}</div>}
+          
+          <form onSubmit={handleSubmit}>
             <div className="mb-3">
-              <label htmlFor="username" className="form-label">Username</label>
+              <label htmlFor="username" className="form-label">Email</label>
               <input
                 type="email"
                 id="username"
                 className="form-control"
                 placeholder="example@gmail.com"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
               />
             </div>
             <div className="mb-3">
@@ -27,16 +87,25 @@ const LoginPage = () => {
                 id="password"
                 className="form-control"
                 placeholder="******"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
               />
             </div>
             <div className="text-end mb-3">
               <a href="/forgot-password" className={styles.link}>Forgot password?</a>
             </div>
-            <button type="submit" className="btn btn-dark w-100">Login</button>
+            <button 
+              type="submit" 
+              className="btn btn-dark w-100"
+              disabled={loading}
+            >
+              {loading ? 'Logging in...' : 'Login'}
+            </button>
           </form>
           <div className="text-center mt-4">
             <p>
-              Don’t have an account?{" "}
+              Don't have an account?{" "}
               <a href="/register" className={styles.link}>Sign Up for free</a>
             </p>
           </div>

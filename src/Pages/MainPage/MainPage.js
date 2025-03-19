@@ -1,12 +1,17 @@
 import { useState, useEffect } from "react";
 import styles from "./MainPage.module.css";
 import useWebsiteTitle from "../../hooks/useWebsiteTitle";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SearchBar from "../../components/searchBar/SearchBar";
 import CatgoriesSection from "../../components/categoriesSection/CategoriesSection";
+import { useUser } from "../../context/UserContext";
+import { useApiJson } from "../../config/api";
 
 export default function MainPage() {
   useWebsiteTitle("Strona główna");
+  const navigate = useNavigate();
+  const { token, user } = useUser();
+  const apiInstance = useApiJson();
 
   // Stan dla kategorii, produktów, ładowania i błędów
   const [categories, setCategories] = useState([]);
@@ -14,44 +19,47 @@ export default function MainPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Pobierz kategorie z API
+  // Sprawdź czy użytkownik jest zalogowany
+  useEffect(() => {
+    if (!token) {
+      navigate('/login');
+    }
+  }, [token, navigate]);
+
+  // Pobierz kategorie z API używając tokena
   const fetchCategories = async () => {
     try {
-      const response = await fetch("/categories?limit=50&page=1");
-      if (!response.ok) {
-        throw new Error("Failed to fetch categories");
-      }
-      const data = await response.json();
-      console.log("Fetched Categories:", data.data || []);
-      setCategories(data.data || []); 
+      const response = await apiInstance.get("/categories?limit=50&page=1");
+      console.log("Fetched Categories:", response.data.data || []);
+      setCategories(response.data.data || []); 
     } catch (err) {
-      setError(err.message);
+      console.error("Error fetching categories:", err);
+      setError(err.response?.data?.message || err.message);
     } finally {
       setIsLoading(false);
     }
   };
 
-  // Pobierz produkty z API
+  // Pobierz produkty z API używając tokena
   const fetchProducts = async () => {
     try {
-      const response = await fetch("/products");
-      if (!response.ok) {
-        throw new Error("Failed to fetch products");
-      }
-      const data = await response.json();
-      console.log("Fetched Products:", data.data || []);
-      setProducts(data.data || []); // Zakładamy, że API zwraca pole "data"
+      const response = await apiInstance.get("/products");
+      console.log("Fetched Products:", response.data.data || []);
+      setProducts(response.data.data || []); 
     } catch (err) {
-      setError(err.message);
+      console.error("Error fetching products:", err);
+      setError(err.response?.data?.message || err.message);
     } finally {
       setIsLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchCategories();
-    fetchProducts();
-  }, []);
+    if (token) {
+      fetchCategories();
+      fetchProducts();
+    }
+  }, [token]); // Uruchom ponownie gdy token się zmieni
 
   if (isLoading) {
     return <div>Loading categories and products...</div>;

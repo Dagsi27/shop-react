@@ -6,16 +6,16 @@ import { useUser } from "../context/UserContext";
 export const API_URL = "/api/";
 
 const useApiInstance = (contentType) => {
-  const { token, refreshToken, login, logout, user } = useUser();
+  const { token, logout } = useUser();
   const navigate = useNavigate();
-
+  
   const instance = axios.create({
     baseURL: API_URL,
     headers: {
       "Content-Type": contentType,
     },
   });
-
+  
   instance.interceptors.request.use(
     (config) => {
       if (token) {
@@ -25,44 +25,20 @@ const useApiInstance = (contentType) => {
     },
     (error) => Promise.reject(error)
   );
-
+  
   instance.interceptors.response.use(
     (response) => response,
-    async (error) => {
-      const originalRequest = error.config;
+    (error) => {
 
-      if ((error.response?.status === 401 || error.response?.status === 403) && originalRequest) {
-        try {
-          const refreshResponse = await axios.post(`${API_URL}auth/refresh`, {
-            refreshToken,
-          });
-
-          login(
-            { ...user },
-            refreshResponse.data.data.accessToken,
-            refreshResponse.data.data.refreshToken
-          );
-
-          localStorageService.setItem("accessToken", refreshResponse.data.data.accessToken);
-          localStorageService.setItem("refreshToken", refreshResponse.data.data.refreshToken);
-
-          originalRequest.headers = {
-            ...originalRequest.headers,
-            Authorization: `Bearer ${refreshResponse.data.data.accessToken}`,
-          };
-
-          return axios(originalRequest);
-        } catch (refreshError) {
-          logout();
-          localStorageService.clear();
-          return Promise.reject(refreshError);
-        }
+      if (error.response?.status === 401 || error.response?.status === 403) {
+        logout();
+        localStorageService.clear();
+        navigate('/login'); 
       }
-
       return Promise.reject(error);
     }
   );
-
+  
   return instance;
 };
 
